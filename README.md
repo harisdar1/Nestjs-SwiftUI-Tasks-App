@@ -149,24 +149,27 @@ curl -X POST http://localhost:3000/tasks \
 
 ### Project Structure
 ```
-tasks/
-├── Models/
-│   └── Task.swift           # Data model matching backend
-├── ViewModels/
-│   └── TasksViewModel.swift # State management & API calls
-├── Views/
-│   ├── TaskListView.swift   # Main list with status filters
-│   ├── TaskRowView.swift    # Individual task cell
-│   ├── AddTaskView.swift    # Create task form
-│   └── EditTaskView.swift   # Edit task form
-└── Services/
-    └── APIService.swift     # Network layer
+ios-app/
+└── tasks/
+    ├── Models/
+    │   └── Task.swift               # Data model matching backend
+    ├── ViewModels/
+    │   └── TasksViewModel.swift     # State management & API calls
+    ├── Views/
+    │   ├── TaskListView.swift       # Main list with status filters
+    │   ├── TaskRowView.swift        # Individual task cell
+    │   ├── AddTaskView.swift        # Create task form
+    │   └── EditTaskView.swift       # Edit task form
+    └── Services/
+        ├── APIService.swift         # Network layer
+        └── NotificationManager.swift # Local deadline reminders
 ```
 
 ### Features
 - Status filtering (All, Pending, In Progress, Completed)
 - Create, edit, and delete tasks
 - Optional deadline with date picker
+- Local push reminder scheduled 1 hour before a task's deadline (via `UNUserNotificationCenter`), automatically cancelled when the task is completed or deleted
 - Real-time sync with backend API
 - Clean, native iOS design
 
@@ -202,7 +205,7 @@ API available at `http://localhost:3000`
 
 ### iOS Setup
 
-1. Open `swift-nest-e-commerce/tasks/tasks.xcodeproj` in Xcode
+1. Open `ios-app/tasks.xcodeproj` in Xcode
 2. Update API base URL in `Services/APIService.swift` if needed
 3. Build and run on simulator or device
 

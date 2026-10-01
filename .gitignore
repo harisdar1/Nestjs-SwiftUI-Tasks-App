@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Node / NestJS
+my-backend/node_modules/
+my-backend/dist/
+my-backend/.env
+
+# Xcode
+ios-app/**/xcuserdata/
+ios-app/**/*.xcuserstate
+ios-app/**/DerivedData/

@@ -40,6 +40,9 @@ class TasksViewModel {
                 status: status
             )
             tasks.insert(newTask, at: 0)
+            if let deadline = deadline {
+                NotificationManager.shared.scheduleDeadlineReminder(for: newTask, deadline: deadline)
+            }
             isLoading = false
             return true
         } catch {
@@ -70,6 +73,12 @@ class TasksViewModel {
                 tasks[index] = updatedTask
             }
 
+            if updatedTask.status == .completed {
+                NotificationManager.shared.cancelReminder(forTaskId: id)
+            } else if let deadline = deadline {
+                NotificationManager.shared.scheduleDeadlineReminder(for: updatedTask, deadline: deadline)
+            }
+
             isLoading = false
             return true
         } catch {
@@ -88,6 +97,7 @@ class TasksViewModel {
         do {
             try await apiService.deleteTask(id: id)
             tasks.removeAll { $0.id == id }
+            NotificationManager.shared.cancelReminder(forTaskId: id)
             isLoading = false
             return true
         } catch {
